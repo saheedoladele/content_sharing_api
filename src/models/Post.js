@@ -2,10 +2,22 @@ import mongoose from "mongoose";
 
 const postSchema = new mongoose.Schema(
   {
-    authorId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true, index: true },
-    text: { type: String, required: true, maxlength: 500 },
+    authorId: { 
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: "User", 
+      required: true, 
+      index: true 
+    },
+    text: { 
+      type: String, 
+      required: true, 
+      maxlength: 500 
+    },
     imageUrl: { type: String },
-    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    likes: [{
+       type: mongoose.Schema.Types.ObjectId, 
+       ref: "User" 
+      }],
   },
   { timestamps: true }
 );
