@@ -1,0 +1,27 @@
+{
+  "name": "content-sharing-api",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "seed": "node src/scripts/seed.js",
+    "migrate": "migrate-mongo up -f migrate-mongo-config.cjs",
+    "migrate:down": "migrate-mongo down -f migrate-mongo-config.cjs",
+    "migrate:status": "migrate-mongo status -f migrate-mongo-config.cjs",
+    "migrate:create": "migrate-mongo create -f migrate-mongo-config.cjs"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.5.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "migrate-mongo": "^14.0.7",
+    "mongoose": "^8.9.5",
+    "multer": "^2.1.1",
+    "swagger-ui-express": "^5.0.1"
+  }
+}
