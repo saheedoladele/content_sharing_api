@@ -1,6 +1,7 @@
 import app from "./app.js";
 import { connectDatabase } from "./config/database.js";
 import { env } from "./config/env.js";
+import { logger } from "./config/logger.js";
 
 async function main() {
   await connectDatabase();
@@ -8,25 +9,31 @@ async function main() {
   const baseUrl = `http://localhost:${env.port}`;
 
   const server = app.listen(env.port, () => {
-    console.log(`[api] listening ${baseUrl}`);
-    console.log(`[api] health ${baseUrl}/health`);
-    console.log(`[api] swagger ${baseUrl}/api-docs`);
-    console.log(`[api] openapi ${baseUrl}/openapi.json`);
+    logger.info(
+      {
+        url: baseUrl,
+        health: `${baseUrl}/health`,
+        swagger: `${baseUrl}/api-docs`,
+        openapi: `${baseUrl}/openapi.json`,
+      },
+      "server listening"
+    );
   });
 
   server.on("error", (err) => {
     if (err.code === "EADDRINUSE") {
-      console.error(
-        `Port ${env.port} is already in use. Stop the other process, or set PORT to a free port in .env / .env.dev.`
+      logger.error(
+        { port: env.port, err },
+        "port already in use; stop the other process or set PORT in .env / .env.dev"
       );
     } else {
-      console.error(err);
+      logger.error({ err }, "server listen error");
     }
     process.exit(1);
   });
 }
 
 main().catch((err) => {
-  console.error(err);
+  logger.error({ err }, "failed to start server");
   process.exit(1);
 });

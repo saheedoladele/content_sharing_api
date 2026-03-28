@@ -22,6 +22,11 @@
     "migrate-mongo": "^14.0.7",
     "mongoose": "^8.9.5",
     "multer": "^2.1.1",
+    "pino": "^10.3.1",
+    "pino-http": "^11.0.0",
     "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "pino-pretty": "^13.1.3"
   }
 }
