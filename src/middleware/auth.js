@@ -1,10 +1,13 @@
 import jwt from "jsonwebtoken";
 import { env } from "../config/env.js";
+import { sendError } from "../utils/errorResponse.js";
 
 export function requireAuth(req, res, next) {
   const header = req.headers.authorization;
   if (!header?.startsWith("Bearer ")) {
-    return res.status(401).json({ error: "Authentication required" });
+    return sendError(res, 401, "Authentication required. Send an Authorization: Bearer <token> header.", {
+      code: "UNAUTHORIZED",
+    });
   }
   const token = header.slice(7);
   try {
@@ -12,7 +15,9 @@ export function requireAuth(req, res, next) {
     req.userId = payload.sub;
     next();
   } catch {
-    return res.status(401).json({ error: "Invalid or expired token" });
+    return sendError(res, 401, "Invalid or expired token. Please sign in again.", {
+      code: "INVALID_TOKEN",
+    });
   }
 }
 
