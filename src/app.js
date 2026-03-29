@@ -1,7 +1,7 @@
 import "./config/env.js";
 import express from "express";
-import cors from "cors";
 import pinoHttp from "pino-http";
+import { corsMiddleware } from "./config/corsOptions.js";
 import { logger } from "./config/logger.js";
 import routes from "./routes/index.js";
 import { setupSwagger } from "./config/swagger.js";
@@ -9,7 +9,8 @@ import { notFoundHandler, errorHandler } from "./middleware/errorHandler.js";
 
 const app = express();
 
-app.use(cors({ origin: true, credentials: true }));
+app.use(corsMiddleware);
+
 app.use(express.json({ limit: "1mb" }));
 
 app.use(

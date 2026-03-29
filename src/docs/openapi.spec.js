@@ -2,13 +2,17 @@ export const openapiSpec = {
   openapi: "3.0.3",
   info: {
     title: "Content Sharing API",
+    author: {
+      name: "Saheed Baba",
+      url: "https://github.com/saheedoladele",
+    },
     description:
-      "REST API for the content-sharing app: auth (JWT), users, posts, comments, likes, follows, and image upload (Cloudinary).",
+      "REST API for the content-sharing app: auth (JWT), users, posts, comments, likes, follows, and image upload (Cloudinary) built by @saheedbaba using Node.js, Express, MongoDB, and Mongoose.",
     version: "1.0.0",
   },
   servers: [
     {
-      url: "http://localhost:3001",
+      url: process.env.API_URL || "http://localhost:3002",
       description: "Local development",
     },
   ],
@@ -18,7 +22,11 @@ export const openapiSpec = {
     { name: "Users", description: "Profiles and follow graph" },
     { name: "Posts", description: "Feed, search, create, likes" },
     { name: "Comments", description: "Threaded comments on posts" },
-    { name: "Upload", description: "Image upload to Cloudinary (requires CLOUDINARY_URL on server)" },
+    {
+      name: "Upload",
+      description:
+        "Image upload to Cloudinary (requires CLOUDINARY_URL on server)",
+    },
   ],
   components: {
     securitySchemes: {
@@ -136,7 +144,11 @@ export const openapiSpec = {
       UploadImageResponse: {
         type: "object",
         properties: {
-          url: { type: "string", format: "uri", description: "HTTPS URL (use as imageUrl on posts or avatar)" },
+          url: {
+            type: "string",
+            format: "uri",
+            description: "HTTPS URL (use as imageUrl on posts or avatar)",
+          },
           publicId: { type: "string" },
           width: { type: "integer" },
           height: { type: "integer" },
@@ -341,7 +353,8 @@ export const openapiSpec = {
             name: "excludeSelf",
             in: "query",
             schema: { type: "string", enum: ["true", "false"] },
-            description: "When `true` and authenticated, excludes current user from the list",
+            description:
+              "When `true` and authenticated, excludes current user from the list",
           },
         ],
         responses: {
@@ -540,7 +553,11 @@ export const openapiSpec = {
           {
             name: "scope",
             in: "query",
-            schema: { type: "string", enum: ["global", "following"], default: "global" },
+            schema: {
+              type: "string",
+              enum: ["global", "following"],
+              default: "global",
+            },
           },
         ],
         responses: {
